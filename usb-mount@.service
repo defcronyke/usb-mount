@@ -1,0 +1,9 @@
+[Unit]
+Description=Mount USB Drive on %i
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/sh -c "/usr/bin/pmount --umask 000 /dev/%i \"$(/usr/bin/lsblk --fs | grep %i | awk '{print $3}')\""
+ExecStop=/usr/bin/pumount /dev/%i
+
